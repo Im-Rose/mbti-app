@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWell - Personality Career & Inspiration Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        :root {
+            --primary: #6c63ff;
+            --primary-light: #e9e8ff;
+            --primary-dark: #5a52d5;
+            --secondary: #ff6584;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --white: #ffffff;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --transition: all 0.2s ease;
+        }
+
+        .navbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(4px);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-light);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-full);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .logout-link {
+            color: var(--gray-500);
+            margin-left: 0.5rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .community-main {
+            padding: 2rem 0 4rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--gray-500);
+            font-size: 1.1rem;
+        }
+
+        .personality-section {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .selector-wrapper {
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .tribe-select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-family: inherit;
+            font-weight: 500;
+            background: white;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .tribe-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+
+        .career-grid {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .career-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .career-paths {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .career-badge {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            transition: var(--transition);
+        }
+
+        .career-badge i {
+            color: var(--primary);
+            margin-right: 0.4rem;
+        }
+
+        .celebrities-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .celebrity-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .celebrity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .celebrity-banner {
+            background: linear-gradient(120deg, var(--primary-light), #d9f0ff);
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .celebrity-info {
+            padding: 1.2rem;
+        }
+
+        .celebrity-info h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .celebrity-type {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: var(--radius-full);
+            margin-bottom: 0.7rem;
+        }
+
+        .celebrity-story {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            border-top: 1px solid var(--gray-100);
+            padding-top: 0.7rem;
+        }
+
+        .inspiring-quote {
+            background: #fff9e8;
+            border-left: 4px solid var(--secondary);
+            padding: 0.8rem 1rem;
+            border-radius: 0.75rem;
+            font-style: italic;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            color: var(--gray-700);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-500);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-500);
+            border-top: 1px solid var(--gray-200);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            .personality-section {
+                padding: 1.2rem;
+            }
+        }
+
+        button, .connect-btn, .register-btn {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="mbti-test.html">MBTI Test</a>
+                <a href="mood-tracker.html">Mood Tracker</a>
+                <a href="profile.html">Profile</a>
+                <a href="resources.html">Resources</a>
+                <a href="community.html" class="active">Inspire Hub</a>
+                <a href="#" id="logoutBtn" class="logout-link">Logout</a>
+            </div>
+            <div class="nav-buttons">
+                <div class="nav-user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userNameDisplay">Explorer</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="community-main">
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-chart-line"></i> Personality Career & Legacy Hub</h1>
+                <p>Discover career paths & icons who share your MBTI type — be inspired by their journey</p>
+            </div>
+
+            <div class="personality-section">
+                <div class="selector-wrapper">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;"><i class="fas fa-brain"></i> Select your MBTI personality:</label>
+                    <select id="mbtiSelect" class="tribe-select">
+                        <option value="">🔍 Choose your type...</option>
+                        <option value="INTJ">INTJ - The Architect (Strategic Mastermind)</option>
+                        <option value="INTP">INTP - The Thinker (Innovative Logician)</option>
+                        <option value="ENTJ">ENTJ - The Commander (Bold Leader)</option>
+                        <option value="ENTP">ENTP - The Debater (Visionary Explorer)</option>
+                        <option value="INFJ">INFJ - The Advocate (Inspirational Idealist)</option>
+                        <option value="INFP">INFP - The Mediator (Creative Healer)</option>
+                        <option value="ENFJ">ENFJ - The Protagonist (Charismatic Mentor)</option>
+                        <option value="ENFP">ENFP - The Campaigner (Enthusiastic Creator)</option>
+                        <option value="ISTJ">ISTJ - The Logistician (Practical Organizer)</option>
+                        <option value="ISFJ">ISFJ - The Defender (Devoted Guardian)</option>
+                        <option value="ESTJ">ESTJ - The Executive (Efficient Manager)</option>
+                        <option value="ESFJ">ESFJ - The Consul (Community Builder)</option>
+                        <option value="ISTP">ISTP - The Virtuoso (Hands-on Explorer)</option>
+                        <option value="ISFP">ISFP - The Adventurer (Artistic Soul)</option>
+                        <option value="ESTP">ESTP - The Entrepreneur (Action Seeker)</option>
+                        <option value="ESFP">ESFP - The Entertainer (Spontaneous Performer)</option>
+                    </select>
+                </div>
+
+                <!-- dynamic content: career paths + celebrities + inspiring story -->
+                <div id="personalityInsightPanel">
+                    <div class="empty-state">
+                        <i class="fas fa-smile-wink" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                        <p>✨ Select your MBTI type above ✨<br>Unlock career recommendations & iconic role models who share your DNA.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MindWell · Personality Career Hub · Find your path, inspired by legends.</p>
+    </footer>
+
+    <script>
+        // ======================= DATABASE: Career Paths + Celebrities + Inspiring Stories =======================
+        const personalityData = {
+            'INTJ': {
+                careerPaths: ['🧠 AI Research Scientist', '📊 Strategic Consultant', '⚙️ Systems Architect', '🚀 Entrepreneur', '🔬 Biochemist'],
+                celebrities: [
+                    { name: "Elon Musk", type: "INTJ", emoji: "🚀", bio: "CEO of Tesla & SpaceX", story: "Faced repeated rocket failures & bankruptcy, but trusted his strategic vision. Revolutionized space travel & electric vehicles." },
+                    { name: "Friedrich Nietzsche", type: "INTJ", emoji: "📖", bio: "Philosopher", story: "Challenged conventional morality, wrote 'Thus Spoke Zarathustra', inspiring generations to think independently." }
+                ],
+                inspiringQuote: "“The future belongs to those who believe in the beauty of their strategic dreams.” – Inspired by INTJ legacy"
+            },
+            'INTP': {
+                careerPaths: ['💻 Software Engineer', '🧪 Theoretical Physicist', '📐 Mathematician', '📚 Philosopher', '🧩 Game Designer'],
+                celebrities: [
+                    { name: "Albert Einstein", type: "INTP", emoji: "⚛️", bio: "Theoretical Physicist", story: "His curiosity and deep abstract thinking led to theory of relativity. Overcame academic resistance and changed physics forever." },
+                    { name: "Bill Gates", type: "INTP", emoji: "💡", bio: "Microsoft Co-founder", story: "Dropped out of Harvard to pursue coding, built Microsoft, now philanthropist solving global health challenges." }
+                ],
+                inspiringQuote: "“Imagination is more important than knowledge.” – Albert Einstein"
+            },
+            'ENTJ': {
+                careerPaths: ['🏛️ Corporate Executive', '⚖️ Law & Politics', '📈 Investment Banker', '🎯 Management Consultant', '🌍 NGO Director'],
+                celebrities: [
+                    { name: "Steve Jobs", type: "ENTJ", emoji: "🍏", bio: "Apple Co-founder", story: "Fired from his own company, returned to save Apple, created iPhone/iPad — visionary leader with relentless drive." },
+                    { name: "Margaret Thatcher", type: "ENTJ", emoji: "🇬🇧", bio: "Former UK Prime Minister", story: "First female PM, known for strong will, transformed British economy with bold reforms." }
+                ],
+                inspiringQuote: "“Stay hungry, stay foolish.” – Steve Jobs"
+            },
+            'ENTP': {
+                careerPaths: ['🎭 Inventor', '📢 Marketing Strategist', '⚡ Startup Founder', '🎙️ Debater/Lawyer', '🕵️ Journalist'],
+                celebrities: [
+                    { name: "Leonardo da Vinci", type: "ENTP", emoji: "🎨", bio: "Polymath", story: "Master of art, science, engineering — boundless curiosity. His notebooks reveal a mind ahead of its time." },
+                    { name: "Mark Twain", type: "ENTP", emoji: "✍️", bio: "Author", story: "Used satire and wit to challenge norms, wrote 'Adventures of Huckleberry Finn', inspired millions to think critically." }
+                ],
+                inspiringQuote: "“They did not know it was impossible, so they did it.” – Mark Twain"
+            },
+            'INFJ': {
+                careerPaths: ['🕊️ Psychologist', '✍️ Author', '🎗️ Humanitarian', '🧘 Life Coach', '📖 Counselor'],
+                celebrities: [
+                    { name: "Martin Luther King Jr.", type: "INFJ", emoji: "🕊️", bio: "Civil Rights Leader", story: "Had a dream of equality, led peaceful protests, changed history through empathy and powerful vision." },
+                    { name: "Nelson Mandela", type: "INFJ", emoji: "🤝", bio: "Former President SA", story: "Spent 27 years in prison, forgave oppressors, united a nation — the ultimate advocate for justice." }
+                ],
+                inspiringQuote: "“Darkness cannot drive out darkness; only light can do that.” – MLK Jr."
+            },
+            'INFP': {
+                careerPaths: ['🎨 Writer/Poet', '🎭 Musician', '🧘 Art Therapist', '📚 Librarian', '🌱 Social Worker'],
+                celebrities: [
+                    { name: "William Shakespeare", type: "INFP", emoji: "🎭", bio: "Playwright", story: "Crafted timeless stories about human emotion, revolutionized literature despite humble beginnings." },
+                    { name: "J.K. Rowling", type: "INFP", emoji: "⚡", bio: "Author of Harry Potter", story: "Rejected by 12 publishers, persisted and created a magical world that inspired millions to find courage." }
+                ],
+                inspiringQuote: "“Happiness can be found even in the darkest of times if one only remembers to turn on the light.” – Dumbledore"
+            },
+            'ENFJ': {
+                careerPaths: ['🎤 Public Speaker', '🧑‍🏫 Teacher', '🤝 Community Organizer', '📢 PR Specialist', '🌿 Life Coach'],
+                celebrities: [
+                    { name: "Barack Obama", type: "ENFJ", emoji: "🌟", bio: "44th US President", story: "Inspiring orator, brought hope and change, empowered youth and community organizing." },
+                    { name: "Oprah Winfrey", type: "ENFJ", emoji: "📺", bio: "Media Mogul", story: "Overcame poverty and trauma, built a media empire, uplifting millions through empathy and generosity." }
+                ],
+                inspiringQuote: "“The greatest discovery of all time is that a person can change his future by merely changing his attitude.” – Oprah"
+            },
+            'ENFP': {
+                careerPaths: ['🎬 Filmmaker', '🎨 Creative Director', '✈️ Travel Blogger', '🎮 Game Developer', '🎤 Brand Strategist'],
+                celebrities: [
+                    { name: "Robin Williams", type: "ENFP", emoji: "😂", bio: "Actor & Comedian", story: "Brought joy to millions, used improvisation and emotional depth, showing that creativity heals." },
+                    { name: "Robert Downey Jr.", type: "ENFP", emoji: "🤖", bio: "Iron Man Actor", story: "Overcame addiction, made epic comeback, inspiring others to never give up on reinvention." }
+                ],
+                inspiringQuote: "“You miss 100% of the shots you don’t take.” – ENFP spirit"
+            },
+            'ISTJ': {
+                careerPaths: ['🏦 Accountant', '⚖️ Judge', '📊 Data Analyst', '🏛️ Civil Servant', '🔒 Auditor'],
+                celebrities: [
+                    { name: "George Washington", type: "ISTJ", emoji: "🇺🇸", bio: "First US President", story: "Led with integrity and duty, established democratic foundations, known for unwavering responsibility." },
+                    { name: "Angela Merkel", type: "ISTJ", emoji: "🏛️", bio: "Former German Chancellor", story: "Steady leadership, pragmatic problem-solver, guided Germany through multiple crises." }
+                ],
+                inspiringQuote: "“Perseverance and spirit have done wonders in all ages.” – George Washington"
+            },
+            'ISFJ': {
+                careerPaths: ['👩‍⚕️ Nurse', '📚 Librarian', '🧸 Social Worker', '🛡️ HR Specialist', '🍎 Teacher'],
+                celebrities: [
+                    { name: "Mother Teresa", type: "ISFJ", emoji: "🤲", bio: "Humanitarian", story: "Dedicated her life to the poorest of the poor, showed that quiet service can change the world." },
+                    { name: "Kate Middleton", type: "ISFJ", emoji: "👑", bio: "Princess of Wales", story: "Known for grace, dedication to mental health and early childhood development." }
+                ],
+                inspiringQuote: "“Not all of us can do great things. But we can do small things with great love.” – Mother Teresa"
+            },
+            'ESTJ': {
+                careerPaths: ['🏭 Operations Manager', '⚖️ Judge', '📈 Business Admin', '🚔 Police Chief', '🏛️ Politician'],
+                celebrities: [
+                    { name: "Judge Judy", type: "ESTJ", emoji: "⚖️", bio: "TV Judge", story: "Strong, decisive, practical — built a courtroom empire based on efficiency and no-nonsense justice." },
+                    { name: "Hillary Clinton", type: "ESTJ", emoji: "🌐", bio: "Former Secretary of State", story: "Resilient leader, policy expert, broke barriers in global diplomacy." }
+                ],
+                inspiringQuote: "“Do the right thing, not the easy thing.”"
+            },
+            'ESFJ': {
+                careerPaths: ['🏥 Healthcare Admin', '🎉 Event Planner', '👥 Sales Manager', '🏫 School Principal', '🧑‍🍳 Hospitality Director'],
+                celebrities: [
+                    { name: "Taylor Swift", type: "ESFJ", emoji: "🎤", bio: "Singer-Songwriter", story: "Connects deeply with fans, built community through music, turned heartbreak into global anthems." },
+                    { name: "Bill Clinton", type: "ESFJ", emoji: "🤝", bio: "Former US President", story: "Charismatic connector, known for empathy and strong relationship-building." }
+                ],
+                inspiringQuote: "“The only way to do great work is to love what you do.”"
+            },
+            'ISTP': {
+                careerPaths: ['🔧 Engineer', '🚁 Pilot', '⚡ Forensic Analyst', '🏎️ Motorsport Mechanic', '📸 Photographer'],
+                celebrities: [
+                    { name: "Tom Cruise", type: "ISTP", emoji: "🎬", bio: "Actor/Stuntman", story: "Performs his own stunts, perfectionist, redefined action cinema with relentless precision." },
+                    { name: "Bear Grylls", type: "ISTP", emoji: "🏔️", bio: "Adventurer", story: "Survived extreme conditions, inspired millions to embrace adventure and practical courage." }
+                ],
+                inspiringQuote: "“Improvise, adapt, overcome.”"
+            },
+            'ISFP': {
+                careerPaths: ['🎨 Visual Artist', '🎸 Musician', '🧵 Fashion Designer', '📸 Photographer', '🧘 Yoga Instructor'],
+                celebrities: [
+                    { name: "Frida Kahlo", type: "ISFP", emoji: "🎨", bio: "Painter", story: "Turned pain into powerful art, celebrated identity and resilience, icon of authenticity." },
+                    { name: "Bob Dylan", type: "ISFP", emoji: "🎸", bio: "Musician", story: "Revolutionized folk music, Nobel Prize winner, stayed true to his artistic soul." }
+                ],
+                inspiringQuote: "“Be yourself; everyone else is already taken.” – Oscar Wilde (resonates with ISFP)"
+            },
+            'ESTP': {
+                careerPaths: ['📈 Entrepreneur', '🏅 Athlete', '🎤 Sales Star', '🚁 Pilot', '🕵️ Private Investigator'],
+                celebrities: [
+                    { name: "Ernest Hemingway", type: "ESTP", emoji: "✍️", bio: "Author", story: "Lived adventurously, wrote bold prose, survived wars and nature, inspired direct living." },
+                    { name: "Madonna", type: "ESTP", emoji: "👑", bio: "Pop Icon", story: "Constantly reinvented herself, took risks, dominated music industry for decades." }
+                ],
+                inspiringQuote: "“The world breaks everyone and afterward many are strong at the broken places.” – Hemingway"
+            },
+            'ESFP': {
+                careerPaths: ['🎭 Performer', '🎤 Event Host', '💃 Dancer', '📱 Social Media Star', '🎮 Entertainer'],
+                celebrities: [
+                    { name: "Marilyn Monroe", type: "ESFP", emoji: "✨", bio: "Actress", story: "Lit up screens with charm, overcame hardship, symbol of joy and vulnerability." },
+                    { name: "Will Smith", type: "ESFP", emoji: "🎬", bio: "Actor/Rapper", story: "From rap to Hollywood blockbusters, unstoppable energy and optimism inspired millions." }
+                ],
+                inspiringQuote: "“Being realistic is the most common path to mediocrity.” – Will Smith"
+            }
+        };
+
+        // Fallback for all other types not explicitly defined (just safety)
+        const defaultData = {
+            careerPaths: ['🌱 Self-Discovery Guide', '💼 Flexible Career', '📚 Lifelong Learner', '🧘 Mindfulness Coach'],
+            celebrities: [
+                { name: "Anonymous Hero", type: "Unique", emoji: "⭐", bio: "Everyday Legend", story: "Every personality carries unique brilliance. Your story is still being written — make it inspiring." }
+            ],
+            inspiringQuote: "“Believe in yourself and your journey. Your personality is your superpower.”"
+        };
+
+        // DOM elements
+        const mbtiSelect = document.getElementById('mbtiSelect');
+        const panel = document.getElementById('personalityInsightPanel');
+
+        function renderPersonalityInsight(selectedType) {
+            if (!selectedType || !personalityData[selectedType]) {
+                panel.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                        <p>✨ Please select a valid MBTI type to see career insights & legendary role models ✨</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const data = personalityData[selectedType];
+            const careerItems = data.careerPaths.map(career => `<span class="career-badge"><i class="fas fa-briefcase"></i> ${career}</span>`).join('');
+            
+            // Two celebrities
+            let celebritiesHtml = '';
+            if (data.celebrities && data.celebrities.length) {
+                celebritiesHtml = data.celebrities.map(celeb => `
+                    <div class="celebrity-card">
+                        <div class="celebrity-banner">
+                            <span style="font-size: 2.5rem;">${celeb.emoji || '🌟'}</span>
+                        </div>
+                        <div class="celebrity-info">
+                            <h4>${celeb.name}</h4>
+                            <span class="celebrity-type">${celeb.type} · ${celeb.bio}</span>
+                            <div class="celebrity-story">
+                                <i class="fas fa-quote-left" style="color: var(--primary); margin-right: 0.3rem;"></i> ${celeb.story}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                celebritiesHtml = `<div class="empty-state" style="grid-column:1/-1;">🌟 Inspiring icons coming soon for this type — but you can be the first legend! 🌟</div>`;
+            }
+
+            const finalHtml = `
+                <div class="career-grid">
+                    <div class="career-title">
+                        <i class="fas fa-chart-simple"></i> Recommended Career Paths for ${selectedType}
+                    </div>
+                    <div class="career-paths">
+                        ${careerItems}
+                    </div>
+                    
+                    <div style="margin: 1.8rem 0 1rem 0;">
+                        <div class="career-title">
+                            <i class="fas fa-star-of-life"></i> Two Icons Who Share Your Personality
+                        </div>
+                        <div class="celebrities-row">
+                            ${celebritiesHtml}
+                        </div>
+                    </div>
+                    
+                    <div class="inspiring-quote">
+                        <i class="fas fa-feather-alt" style="margin-right: 0.5rem; color: var(--secondary);"></i> 
+                        <strong>✨ Inspiring Legacy Note:</strong> ${data.inspiringQuote || "Your personality type has shaped history. Now it's your turn to create impact."}
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; background: var(--primary-light); border-radius: 1rem; padding: 1rem; text-align: center;">
+                        <i class="fas fa-hand-sparkles"></i> <strong>Did you know?</strong> People with ${selectedType} personality often thrive when they combine strategy with purpose. Take these icons' journeys as a compass — not a rulebook.
+                    </div>
+                </div>
+            `;
+            
+            panel.innerHTML = finalHtml;
+        }
+
+        // Attach change event
+        mbtiSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val) {
+                renderPersonalityInsight(val);
+            } else {
+                panel.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-smile-wink" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                        <p>✨ Select your MBTI type above ✨<br>Unlock career recommendations & iconic role models who share your DNA.</p>
+                    </div>
+                `;
+            }
+        });
+
+        // optional load any saved preference? just ready state
+        // user display & logout
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.name) {
+            document.getElementById('userNameDisplay').textContent = user.name;
+        } else {
+            document.getElementById('userNameDisplay').textContent = 'Explorer';
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = 'index.html';
+        });
+        
+        // Bonus if coming from MBTI test we could auto set, but fine.
+        // initial state: empty (prompt)
+        panel.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-chalkboard-user" style="font-size: 2.5rem; margin-bottom: 1rem; display: block; color: var(--primary);"></i>
+                <p>🌟 Discover your ideal career path and meet legendary figures who share your MBTI DNA.<br>
+                Select your personality type from the dropdown above to begin your inspiration journey.</p>
+            </div>
+        `;
+    </script>
+</body>
+</html>

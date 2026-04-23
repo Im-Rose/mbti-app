@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your MBTI Result - MindWell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="mbti-test.html"><i class="fas fa-clipboard-question"></i> MBTI Test</a>
+                <a href="mood-tracker.html"><i class="fas fa-face-smile"></i> Mood Tracker</a>
+                <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="resources.html"><i class="fas fa-book-open"></i> Resources</a>
+                <a href="#" id="logoutBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+            <div class="nav-buttons">
+                <div class="nav-user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userNameDisplay">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="result-card animate-up" id="resultContainer" style="max-width: 900px; margin: 0 auto; padding: 4rem;">
+                <div style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary);"></i>
+                    <p style="margin-top: 1.5rem; font-weight: 600; color: var(--text-muted);">Analyzing your personality type...</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+    <script>
+        // MBTI টাইপ অনুযায়ী ডাটা
+        const mbtiData = {
+            // Analysts (NT)
+            'INTJ': { 
+                name: 'The Architect', 
+                description: 'Imaginative and strategic thinkers, with a plan for everything. You are rational, quick-witted, and enjoy theoretical discussions.',
+                traits: ['Strategic', 'Logical', 'Independent', 'Visionary']
+            },
+            'INTP': { 
+                name: 'The Thinker', 
+                description: 'Innovative, abstract, and logical. You love theoretical concepts and enjoy exploring ideas. You are curious and analytical.',
+                traits: ['Analytical', 'Curious', 'Abstract', 'Open-minded']
+            },
+            'ENTJ': { 
+                name: 'The Commander', 
+                description: 'Bold, imaginative and strong-willed leaders, always finding a way. You are charismatic and decisive.',
+                traits: ['Bold', 'Charismatic', 'Decisive', 'Strategic']
+            },
+            'ENTP': { 
+                name: 'The Debater', 
+                description: 'Smart and curious thinkers who cannot resist an intellectual challenge. You love brainstorming and debating.',
+                traits: ['Curious', 'Quick-witted', 'Creative', 'Debater']
+            },
+            
+            // Diplomats (NF)
+            'INFJ': { 
+                name: 'The Advocate', 
+                description: 'Quiet and mystical, yet very inspiring and tireless idealists. You have a deep sense of purpose.',
+                traits: ['Idealistic', 'Compassionate', 'Insightful', 'Principled']
+            },
+            'INFP': { 
+                name: 'The Mediator', 
+                description: 'Poetic, kind and altruistic people, always eager to help a good cause. You are creative and empathetic.',
+                traits: ['Empathetic', 'Creative', 'Idealistic', 'Passionate']
+            },
+            'ENFJ': { 
+                name: 'The Protagonist', 
+                description: 'Charismatic and inspiring leaders, able to mesmerize their listeners. You are natural mentors.',
+                traits: ['Charismatic', 'Inspiring', 'Altruistic', 'Diplomatic']
+            },
+            'ENFP': { 
+                name: 'The Campaigner', 
+                description: 'Enthusiastic, creative and sociable free spirits, who can always find a reason to smile. You love new ideas.',
+                traits: ['Enthusiastic', 'Creative', 'Sociable', 'Spontaneous']
+            },
+            
+            // Sentinels (SJ)
+            'ISTJ': { 
+                name: 'The Logistician', 
+                description: 'Practical and fact-minded individuals, whose reliability cannot be doubted. You are organized and responsible.',
+                traits: ['Reliable', 'Practical', 'Organized', 'Responsible']
+            },
+            'ISFJ': { 
+                name: 'The Defender', 
+                description: 'Very dedicated and warm protectors, always ready to defend their loved ones. You are loyal and caring.',
+                traits: ['Loyal', 'Warm', 'Dedicated', 'Protective']
+            },
+            'ESTJ': { 
+                name: 'The Executive', 
+                description: 'Excellent administrators, unsurpassed at managing things or people. You are decisive and efficient.',
+                traits: ['Decisive', 'Efficient', 'Organized', 'Practical']
+            },
+            'ESFJ': { 
+                name: 'The Consul', 
+                description: 'Extraordinarily caring, social and popular people, always eager to help. You are friendly and community-focused.',
+                traits: ['Friendly', 'Caring', 'Popular', 'Community-focused']
+            },
+            
+            // Explorers (SP)
+            'ISTP': { 
+                name: 'The Virtuoso', 
+                description: 'Bold and practical experimenters, masters of all kinds of tools. You are action-oriented and adaptable.',
+                traits: ['Adaptable', 'Action-oriented', 'Practical', 'Observant']
+            },
+            'ISFP': { 
+                name: 'The Adventurer', 
+                description: 'Flexible and charming artists, always ready to explore something new. You are artistic and sensitive.',
+                traits: ['Artistic', 'Sensitive', 'Charming', 'Spontaneous']
+            },
+            'ESTP': { 
+                name: 'The Entrepreneur', 
+                description: 'Smart, energetic and very perceptive people, who truly enjoy living on the edge. You are bold and pragmatic.',
+                traits: ['Bold', 'Energetic', 'Perceptive', 'Pragmatic']
+            },
+            'ESFP': { 
+                name: 'The Entertainer', 
+                description: 'Spontaneous, energetic and enthusiastic people – life is never boring around them. You love being the center of attention.',
+                traits: ['Spontaneous', 'Energetic', 'Enthusiastic', 'Fun-loving']
+            }
+        };
+
+        // URL থেকে MBTI টাইপ নেওয়া
+        function getMBTITypeFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let type = urlParams.get('type');
+            // টাইপ ভালিড কিনা চেক করা
+            if (type && mbtiData[type.toUpperCase()]) {
+                return type.toUpperCase();
+            }
+            // যদি URL এ না থাকে, localStorage থেকে নেওয়া
+            const saved = localStorage.getItem('userMBTI');
+            if (saved && mbtiData[saved]) {
+                return saved;
+            }
+            // ডিফল্ট INTP
+            return 'INTP';
+        }
+
+        // রেজাল্ট পেজ রেন্ডার করা
+        function renderResult() {
+            const mbtiType = getMBTITypeFromURL();
+            const data = mbtiData[mbtiType];
+            
+            const resultHTML = `
+                <div style="text-align: center;">
+                    <div class="personality-badge">
+                        <i class="fas fa-chart-line"></i> Your Personality Type
+                    </div>
+                    <h1 class="personality-name">${mbtiType} - ${data.name}</h1>
+                    
+                    <div class="traits">
+                        ${data.traits.map(trait => `<span class="trait"><i class="fas fa-star" style="font-size: 0.7rem;"></i> ${trait}</span>`).join('')}
+                    </div>
+                    
+                    <div class="description">
+                        <p>${data.description}</p>
+                    </div>
+                    
+                    <div class="streak-alert">
+                        <i class="fas fa-fire"></i> Great! You've completed the MBTI test. 
+                        <strong>+1 Day Streak 🔥</strong>
+                    </div>
+                    
+                    <div class="share-section">
+                        <div class="share-title">
+                            <i class="fas fa-share-alt"></i> Share your personality result with friends!
+                        </div>
+                        <div class="share-buttons">
+                            <button class="share-btn share-fb" onclick="shareOnFacebook()">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                            <button class="share-btn share-twitter" onclick="shareOnTwitter()">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                            <button class="share-btn share-wa" onclick="shareOnWhatsApp()">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                            <button class="share-btn share-copy" onclick="copyLink()">
+                                <i class="fas fa-link"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="dashboard.html" class="btn-dashboard">
+                            <i class="fas fa-home"></i> Go to Dashboard
+                        </a>
+                        <a href="mbti-test.html" class="btn-retake">
+                            <i class="fas fa-redo-alt"></i> Retake Test
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('resultContainer').innerHTML = resultHTML;
+            
+            // লোকাল স্টোরেজে রেজাল্ট আপডেট করা
+            localStorage.setItem('userMBTI', mbtiType);
+        }
+
+        // শেয়ার লিংক জেনারেট করা (বর্তমান পেজের লিংক)
+        function getCurrentShareUrl() {
+            const mbtiType = getMBTITypeFromURL();
+            return `http://localhost:5000/result.html?type=${mbtiType}`;
+        }
+
+        // কপি লিংক
+        function copyLink() {
+            const url = getCurrentShareUrl();
+            navigator.clipboard.writeText(url).then(() => {
+                alert('✅ Link copied: ' + url);
+            }).catch(() => {
+                prompt('Press Ctrl+C to copy:', url);
+            });
+        }
+
+        // ফেসবুক শেয়ার
+        function shareOnFacebook() {
+            const url = getCurrentShareUrl();
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
+        }
+
+        // টুইটার শেয়ার
+        function shareOnTwitter() {
+            const url = getCurrentShareUrl();
+            const mbtiType = getMBTITypeFromURL();
+            const data = mbtiData[mbtiType];
+            const text = `My MBTI personality type is ${mbtiType} - ${data.name}! 🧠 Take the test to find yours.`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
+        }
+
+        // হোয়াটসঅ্যাপ শেয়ার
+        function shareOnWhatsApp() {
+            const url = getCurrentShareUrl();
+            const text = `Check out my MBTI personality result: ${url}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // পেজ লোড হলে রেন্ডার করা
+        renderResult();
+    </script>
+</body>
+</html>

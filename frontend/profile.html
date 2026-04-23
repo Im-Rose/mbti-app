@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - MindWell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .profile-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 24px;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6366f1;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-email {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        .card-title i {
+            color: #6366f1;
+        }
+        
+        .personality-type {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+        
+        .personality-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+        
+        .personality-desc {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .mood-summary-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mood-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 16px;
+            background: #f8fafc;
+        }
+        
+        .mood-stat-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        
+        .mood-stat-value {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #1f2937;
+        }
+        
+        .celebrity-match {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+            border: 1px solid #fde68a;
+        }
+        
+        .celebrity-icon {
+            font-size: 4rem;
+            background: white;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.1);
+        }
+        
+        .celebrity-info h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b45309;
+            margin-bottom: 5px;
+        }
+        
+        .celebrity-info h3 {
+            font-size: 1.5rem;
+            color: #78350f;
+            margin-bottom: 10px;
+        }
+        
+        .celebrity-info p {
+            color: #92400e;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+            .celebrity-match {
+                grid-column: span 1;
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="mbti-test.html"><i class="fas fa-clipboard-question"></i> MBTI Test</a>
+                <a href="mood-tracker.html"><i class="fas fa-face-smile"></i> Mood Tracker</a>
+                <a href="community.html"><i class="fas fa-users"></i> Community</a>
+                <a href="resources.html"><i class="fas fa-book-open"></i> Resources</a>
+                <a href="profile.html" class="active"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="#" id="logoutBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="profile-container animate-up">
+        <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="profile-name" id="displayFullName">Loading...</h1>
+            <p class="profile-email" id="displayEmail">loading@example.com</p>
+        </div>
+
+        <div class="profile-grid">
+            <!-- Personality Card -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fas fa-brain"></i>
+                    <span>Personality Type</span>
+                </div>
+                <div id="personalityContent">
+                    <div class="personality-type" id="displayMBTI">----</div>
+                    <div class="personality-name" id="displayMBTIName">Not discovered yet</div>
+                    <p class="personality-desc" id="displayMBTIDesc">Take the MBTI test to discover your unique personality traits and strengths.</p>
+                </div>
+            </div>
+
+            <!-- Mood Summary Card -->
+            <div class="profile-card">
+                <div class="card-title">
+                    <i class="fas fa-heart"></i>
+                    <span>Mood Summary</span>
+                </div>
+                <div class="mood-summary-container">
+                    <div class="mood-stat">
+                        <div class="mood-stat-label">
+                            <span style="font-size: 1.2rem;">✨</span>
+                            <span>Current Vibe</span>
+                        </div>
+                        <div class="mood-stat-value" id="currentVibe">--</div>
+                    </div>
+                    <div class="mood-stat">
+                        <div class="mood-stat-label">
+                            <span style="font-size: 1.2rem;">🔥</span>
+                            <span>Mood Streak</span>
+                        </div>
+                        <div class="mood-stat-value" id="profileStreak">0 Days</div>
+                    </div>
+                    <div class="mood-stat">
+                        <div class="mood-stat-label">
+                            <span style="font-size: 1.2rem;">📊</span>
+                            <span>Total Logs</span>
+                        </div>
+                        <div class="mood-stat-value" id="profileTotalLogs">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Celebrity Match Card -->
+            <div class="profile-card celebrity-match" id="celebrityCard" style="display: none;">
+                <div class="celebrity-icon" id="celebEmoji">🌟</div>
+                <div class="celebrity-info">
+                    <h4>Celebrity Soulmate</h4>
+                    <h3 id="celebName">Loading...</h3>
+                    <p id="celebQuote">"Be yourself; everyone else is already taken."</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="dashboard.html" class="btn-primary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProfileData();
+        });
+
+        async function loadProfileData() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            try {
+                // Fetch User Info
+                const userRes = await fetch(`${API_URL}/auth/me`, {
+                    headers: { 'x-auth-token': token }
+                });
+                const userData = await userRes.json();
+                
+                if (userRes.ok) {
+                    document.getElementById('displayFullName').textContent = userData.name;
+                    document.getElementById('displayEmail').textContent = userData.email;
+                    document.getElementById('profileAvatar').innerHTML = userData.name.charAt(0).toUpperCase();
+                }
+
+                // Fetch MBTI Result
+                const mbtiRes = await fetch(`${API_URL}/mbti/my-result`, {
+                    headers: { 'x-auth-token': token }
+                });
+                
+                if (mbtiRes.ok) {
+                    const mbtiData = await mbtiRes.json();
+                    document.getElementById('displayMBTI').textContent = mbtiData.type;
+                    document.getElementById('displayMBTIName').textContent = mbtiData.name;
+                    document.getElementById('displayMBTIDesc').textContent = mbtiData.description;
+                    
+                    // Show celebrity match
+                    const celeb = getCelebrityMatch(mbtiData.type);
+                    if (celeb) {
+                        document.getElementById('celebrityCard').style.display = 'flex';
+                        document.getElementById('celebEmoji').textContent = celeb.emoji;
+                        document.getElementById('celebName').textContent = celeb.name;
+                        document.getElementById('celebQuote').textContent = celeb.quote;
+                    }
+                }
+
+                // Fetch Mood Data
+                const moodRes = await fetch(`${API_URL}/mood/my-moods`, {
+                    headers: { 'x-auth-token': token }
+                });
+                
+                if (moodRes.ok) {
+                    const moods = await moodRes.json();
+                    document.getElementById('profileTotalLogs').textContent = moods.length;
+                    
+                    if (moods.length > 0) {
+                        const latestMood = moods[0].mood;
+                        const moodIcons = { 'Great': '😁', 'Good': '😊', 'OK': '😐', 'Poor': '😟', 'Bad': '😢' };
+                        document.getElementById('currentVibe').textContent = `${moodIcons[latestMood] || ''} ${latestMood}`;
+                        
+                        // Calculate streak (same logic as dashboard)
+                        let streak = 0;
+                        const today = new Date().toDateString();
+                        const lastMoodDate = new Date(moods[0].date).toDateString();
+                        
+                        if (lastMoodDate === today) {
+                            streak = 1;
+                            for (let i = 1; i < moods.length; i++) {
+                                const prevDate = new Date(moods[i-1].date);
+                                const currDate = new Date(moods[i].date);
+                                const diffDays = Math.floor((prevDate - currDate) / (1000 * 60 * 60 * 24));
+                                if (diffDays === 1) streak++;
+                                else break;
+                            }
+                        }
+                        document.getElementById('profileStreak').textContent = `${streak} Days`;
+                    } else {
+                        document.getElementById('currentVibe').textContent = 'No logs yet';
+                    }
+                }
+
+            } catch (err) {
+                console.error('Error loading profile:', err);
+            }
+        }
+    </script>
+</body>
+</html>

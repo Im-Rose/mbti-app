@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI Test - MindWell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="mbti-test.html" class="active"><i class="fas fa-clipboard-question"></i> MBTI Test</a>
+                <a href="mood-tracker.html"><i class="fas fa-face-smile"></i> Mood Tracker</a>
+                <a href="community.html"><i class="fas fa-users"></i> Community</a>
+                <a href="resources.html"><i class="fas fa-book-open"></i> Resources</a>
+                <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="#" id="logoutBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+            <div class="nav-buttons">
+                <div class="nav-user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userNameDisplay">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="test-main">
+        <div class="container">
+            <div class="test-header animate-up">
+                <h1 style="font-weight: 800; letter-spacing: -0.025em;">MBTI Personality Test</h1>
+                <p>Answer all questions honestly to discover your true personality type.</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="testProgress" style="width: 0%"></div>
+                </div>
+                <div class="progress-percentage">
+                    <span id="currentQuestionNum">0</span> / <span id="totalQuestions">10</span> Questions Completed
+                </div>
+            </div>
+
+            <div class="test-card animate-up" id="questionContainer" style="animation-delay: 0.1s">
+                <!-- Questions will appear here -->
+            </div>
+
+            <div class="test-controls animate-up" style="animation-delay: 0.2s; max-width: 800px; margin: 0 auto;">
+                <button class="btn-secondary" id="prevBtn" disabled style="padding: 0.875rem 1.5rem;">← Previous</button>
+                <button class="btn-primary" id="nextBtn" style="padding: 0.875rem 2.5rem;">Next Question →</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

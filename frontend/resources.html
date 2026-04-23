@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - MindWell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5; /* User requested primary color */
+            --primary-hover: #4338ca;
+            
+        }
+
+        .resources-main {
+            padding-top: 110px;
+            padding-bottom: 70px;
+            min-height: 100vh;
+        }
+
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 160px;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .resource-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .resource-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-content h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .resource-content p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .resource-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .resource-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="mbti-test.html"><i class="fas fa-clipboard-question"></i> MBTI Test</a>
+                <a href="mood-tracker.html"><i class="fas fa-face-smile"></i> Mood Tracker</a>
+                <a href="community.html"><i class="fas fa-users"></i> Community</a>
+                <a href="resources.html" class="active"><i class="fas fa-book-open"></i> Resources</a>
+                <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="#" id="logoutBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+            <div class="nav-buttons">
+                <div class="nav-user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userNameDisplay">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="resources-main">
+        <div class="container">
+            <div class="welcome-section animate-up">
+                <h1>Health & <span class="gradient-text">Wellness Tips</span> 🥗</h1>
+                <p>Simple tips and videos to help you live a healthier, happier life.</p>
+            </div>
+
+            <!-- Health Tips Section -->
+            <section class="animate-up" style="animation-delay: 0.1s">
+                <div class="section-header">
+                    <h2><i class="fas fa-heartbeat" style="color: #ef4444;"></i> Daily Health Tips</h2>
+                </div>
+                <div class="resource-grid">
+                    <!-- Tip 1 -->
+                    <div class="resource-card">
+                        <div class="resource-image" style="background: #fef2f2;">💧</div>
+                        <div class="resource-content">
+                            <h3>Stay Hydrated</h3>
+                            <p>Drink at least 8-10 glasses of water daily. Proper hydration keeps your energy levels high and helps your brain function better.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 2 -->
+                    <div class="resource-card">
+                        <div class="resource-image" style="background: #f0fdf4;">🏃‍♂️</div>
+                        <div class="resource-content">
+                            <h3>Keep Moving</h3>
+                            <p>Try to get at least 30 minutes of physical activity every day. Even a brisk walk can significantly improve your mood and physical health.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 3 -->
+                    <div class="resource-card">
+                        <div class="resource-image" style="background: #eff6ff;">😴</div>
+                        <div class="resource-content">
+                            <h3>Prioritize Sleep</h3>
+                            <p>Aim for 7-9 hours of quality sleep each night. A consistent sleep schedule helps regulate your mood and boosts your immune system.</p>
+                        </div>
+                    </div>
+                    <!-- Tip 4 -->
+                    <div class="resource-card">
+                        <div class="resource-image" style="background: #faf5ff;">🧘‍♂️</div>
+                        <div class="resource-content">
+                            <h3>Mindful Breathing</h3>
+                            <p>Take 5 minutes every day to practice deep breathing. It reduces stress and helps you stay focused throughout the day.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos Section -->
+            <section class="animate-up" style="animation-delay: 0.2s">
+                <div class="section-header">
+                    <h2><i class="fab fa-youtube" style="color: #ff0000;"></i> Helpful Videos</h2>
+                </div>
+                <div class="resource-grid">
+                    <!-- Video 1 -->
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Science of Stress</h3>
+                            <p>Watch this video to understand how stress affects your body and how to manage it effectively.</p>
+                            <div class="resource-footer">
+                                <span class="resource-meta"><i class="fas fa-film"></i> 04:30</span>
+                                <a href="https://www.youtube.com/watch?v=hnpQrMqDoqE" target="_blank" class="btn-primary">Watch on YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Video 2 -->
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>10-Minute Meditation</h3>
+                            <p>A simple guided meditation perfect for beginners to reduce daily anxiety and stress.</p>
+                            <div class="resource-footer">
+                                <span class="resource-meta"><i class="fas fa-film"></i> 10:00</span>
+                                <a href="https://www.youtube.com/watch?v=z6X5oEIg6Ak" target="_blank" class="btn-primary">Watch on YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Video 3 -->
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <div class="video-play-btn"><i class="fas fa-play"></i></div>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Healthy Eating Habits</h3>
+                            <p>Learn the basics of balanced nutrition and how to build a healthy relationship with food.</p>
+                            <div class="resource-footer">
+                                <span class="resource-meta"><i class="fas fa-film"></i> 08:15</span>
+                                <a href="https://www.youtube.com/watch?v=fXp1Hh3oZ5E" target="_blank" class="btn-primary">Watch on YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MindWell - Your MBTI Wellness Companion</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Display user name
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.name) {
+            document.getElementById('userNameDisplay').textContent = user.name;
+        }
+    </script>
+</body>
+</html>

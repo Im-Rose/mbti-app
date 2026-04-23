@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MindWell</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">MindWell</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                <a href="mbti-test.html"><i class="fas fa-clipboard-question"></i> MBTI Test</a>
+                <a href="mood-tracker.html"><i class="fas fa-face-smile"></i> Mood Tracker</a>
+                <a href="community.html"><i class="fas fa-users"></i> Community</a>
+                <a href="resources.html"><i class="fas fa-book-open"></i> Resources</a>
+                <a href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+                <a href="#" id="logoutBtn" class="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+            <div class="nav-buttons">
+                <div class="nav-user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="userNameDisplay">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section animate-up">
+                <h1>Welcome back, <span id="userName" class="gradient-text">User</span>! 👋</h1>
+                <p>Here's your wellness overview for today</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid animate-up" style="animation-delay: 0.1s">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="stat-info">
+                        <h3 id="mbtiStatus">Not Taken</h3>
+                        <p>MBTI Result</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                    <div class="stat-info">
+                        <h3 id="moodStreak">0</h3>
+                        <p>Day Streak</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalEntries">0</h3>
+                        <p>Mood Logs</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="dashboard-grid animate-up" style="animation-delay: 0.2s">
+                <!-- Personality Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-brain"></i> Your Personality</h3>
+                        <a href="mbti-test.html" class="card-link">View Details</a>
+                    </div>
+                    <div id="personalityInfo" class="personality-info">
+                        <p class="empty-state">You haven't taken the MBTI test yet.</p>
+                        <a href="mbti-test.html" class="btn-primary" style="margin-top: 1rem;">Take the Test</a>
+                    </div>
+                </div>
+
+                <!-- Mood Chart Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Mood Insights</h3>
+                        <a href="mood-tracker.html" class="card-link">Log Mood</a>
+                    </div>
+                    <canvas id="moodChart" height="200"></canvas>
+                    <div class="mood-summary" id="moodSummary"></div>
+                </div>
+
+                <!-- Suggestions Card -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-sparkles" style="color: var(--accent)"></i> Personal Suggestions</h3>
+                    </div>
+                    <div id="suggestionsList" class="suggestions-list">
+                        <div class="suggestion-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i> Finding insights...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock-rotate-left"></i> Recent Activity</h3>
+                    </div>
+                    <div id="recentActivities" class="activity-list">
+                        <p class="empty-state">No recent activities yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // ইউজারের নাম দেখানো
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user.name) {
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userNameDisplay').textContent = user.name;
+        }
+    </script>
+</body>
+</html>
