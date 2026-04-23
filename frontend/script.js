@@ -1,5 +1,5 @@
 // ============ BACKEND CONFIGURATION ============
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://mbti-backend-rose.onrender.com/api';
 
 // ============ AUTHENTICATION ============
 
