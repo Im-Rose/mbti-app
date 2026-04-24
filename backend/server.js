@@ -7,7 +7,11 @@ require('dotenv').config();
 const app = express();
 
 // ============ মিডলওয়্যার (Middleware) ============
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'x-auth-token']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
