@@ -8,9 +8,16 @@ function checkAuth() {
     const token = localStorage.getItem('token');
     const currentPage = window.location.pathname.split('/').pop();
     
-    if (!token && !['login.html', 'register.html', 'index.html'].includes(currentPage)) {
-        alert('Please login first!');
+    const publicPages = ['login.html', 'register.html', 'index.html', ''];
+    
+    if (!token && !publicPages.includes(currentPage)) {
         window.location.href = 'login.html';
+        return;
+    }
+    
+    if (!token && (currentPage === 'dashboard.html' || currentPage === '')) {
+        window.location.href = 'login.html';
+        return;
     }
     
     if (token && (currentPage === 'login.html' || currentPage === 'register.html')) {
@@ -41,7 +48,7 @@ if (document.getElementById('loginForm')) {
                 alert(data.msg || 'Login failed');
             }
         } catch (err) {
-            alert('Connection error. Make sure backend is running on port 5000');
+            alert('Connection error. Please try again.');
         }
     });
 }
@@ -76,7 +83,7 @@ if (document.getElementById('registerForm')) {
                 alert(data.msg || 'Registration failed');
             }
         } catch (err) {
-            alert('Connection error. Make sure backend is running on port 5000');
+            alert('Connection error. Please try again.');
         }
     });
 }
@@ -90,7 +97,7 @@ if (logoutBtn) {
         localStorage.removeItem('user');
         localStorage.removeItem('mbtiResult');
         localStorage.removeItem('mbtiAnswers');
-        window.location.href = 'index.html';
+        window.location.href = 'login.html';
     });
 }
 
@@ -598,7 +605,6 @@ let answers = {};
 async function initMBTITest() {
     if (!document.getElementById('questionContainer')) return;
     
-    // Always reset test state when entering the test page
     localStorage.removeItem('mbtiAnswers');
     answers = {};
     currentQIndex = 0;
@@ -635,7 +641,7 @@ async function loadQuestions() {
         console.error('Error loading questions:', err);
         const container = document.getElementById('questionContainer');
         if (container) {
-            container.innerHTML = '<div class="empty-state">❌ Failed to load questions. Make sure backend is running on port 5000</div>';
+            container.innerHTML = '<div class="empty-state">❌ Failed to load questions. Please try again.</div>';
         }
     }
 }
@@ -780,7 +786,7 @@ async function submitTest() {
         }
     } catch (err) {
         console.error('Submit error:', err);
-        alert('Connection error. Make sure backend is running on port 5000');
+        alert('Connection error. Please try again.');
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Test';
@@ -863,7 +869,7 @@ async function saveMood() {
         }
     } catch (err) {
         console.error('Error saving mood:', err);
-        alert('❌ Connection error. Make sure backend is running on port 5000');
+        alert('❌ Connection error. Please try again.');
     } finally {
         if (saveBtn) {
             saveBtn.disabled = false;
@@ -942,7 +948,7 @@ const personalityInsights = {
             { name: 'Steve Jobs', emoji: '🍎', title: 'Apple Co-founder' },
             { name: 'Gordon Ramsay', emoji: '👨‍🍳', title: 'Master Chef' }
         ],
-        story: 'Steve Jobs’ ENTJ leadership and vision transformed Apple from a garage startup into the world\'s most valuable company. His relentless pursuit of perfection and ability to command large-scale innovation changed how we interact with technology daily.'
+        story: 'Steve Jobs\' ENTJ leadership and vision transformed Apple from a garage startup into the world\'s most valuable company. His relentless pursuit of perfection and ability to command large-scale innovation changed how we interact with technology daily.'
     },
     'ENTP': {
         name: 'The Debater',
@@ -978,7 +984,7 @@ const personalityInsights = {
             { name: 'Oprah Winfrey', emoji: '🎙️', title: 'Media Mogul' },
             { name: 'Barack Obama', emoji: '🇺🇸', title: 'Former President' }
         ],
-        story: 'Oprah Winfrey’s ENFJ ability to connect with people on a deep emotional level turned her talk show into a global platform for inspiration. She used her influence to build schools and empower millions, embodying the true Protagonist spirit.'
+        story: 'Oprah Winfrey\'s ENFJ ability to connect with people on a deep emotional level turned her talk show into a global platform for inspiration. She used her influence to build schools and empower millions, embodying the true Protagonist spirit.'
     },
     'ENFP': {
         name: 'The Campaigner',
@@ -987,7 +993,7 @@ const personalityInsights = {
             { name: 'Robin Williams', emoji: '🎭', title: 'Legendary Actor' },
             { name: 'Ellen DeGeneres', emoji: '📺', title: 'TV Host' }
         ],
-        story: 'Robin Williams’ ENFP energy was legendary. He used his boundless creativity and spontaneous humor to bring joy to millions. His career was a testament to how the Campaigner personality can inspire and uplift the human spirit through art.'
+        story: 'Robin Williams\' ENFP energy was legendary. He used his boundless creativity and spontaneous humor to bring joy to millions. His career was a testament to how the Campaigner personality can inspire and uplift the human spirit through art.'
     },
     'ISTJ': {
         name: 'The Logistician',
@@ -996,7 +1002,7 @@ const personalityInsights = {
             { name: 'Queen Elizabeth II', emoji: '👑', title: 'Monarch' },
             { name: 'George Washington', emoji: '🏛️', title: 'US President' }
         ],
-        story: 'Queen Elizabeth II’s 70-year reign was a masterclass in ISTJ duty and reliability. Her unwavering commitment to her role provided a sense of stability through decades of global change, showing the strength of quiet, consistent dedication.'
+        story: 'Queen Elizabeth II\'s 70-year reign was a masterclass in ISTJ duty and reliability. Her unwavering commitment to her role provided a sense of stability through decades of global change, showing the strength of quiet, consistent dedication.'
     },
     'ISFJ': {
         name: 'The Defender',
@@ -1023,7 +1029,7 @@ const personalityInsights = {
             { name: 'Taylor Swift', emoji: '🎤', title: 'Singer-Songwriter' },
             { name: 'Jennifer Garner', emoji: '🎬', title: 'Actress & Activist' }
         ],
-        story: 'Taylor Swift’s ESFJ sense of community has built one of the most loyal fanbases in history. Her focus on connection, tradition, and caring for her "Swifties" shows how the Consul type can lead through warmth and social harmony.'
+        story: 'Taylor Swift\'s ESFJ sense of community has built one of the most loyal fanbases in history. Her focus on connection, tradition, and caring for her "Swifties" shows how the Consul type can lead through warmth and social harmony.'
     },
     'ISTP': {
         name: 'The Virtuoso',
@@ -1050,7 +1056,7 @@ const personalityInsights = {
             { name: 'Tom Cruise', emoji: '🎬', title: 'Actor/Producer' },
             { name: 'Madonna', emoji: '🎶', title: 'Music Icon' }
         ],
-        story: 'Tom Cruise’s ESTP boldness is seen in his legendary dedication to performing his own stunts. Whether climbing the Burj Khalifa or flying fighter jets, his live-in-the-moment energy and tactical skill have defined his career.'
+        story: 'Tom Cruise\'s ESTP boldness is seen in his legendary dedication to performing his own stunts. Whether climbing the Burj Khalifa or flying fighter jets, his live-in-the-moment energy and tactical skill have defined his career.'
     },
     'ESFP': {
         name: 'The Entertainer',
@@ -1059,7 +1065,7 @@ const personalityInsights = {
             { name: 'Will Smith', emoji: '🎭', title: 'Actor & Icon' },
             { name: 'Marilyn Monroe', emoji: '💎', title: 'Legendary Actress' }
         ],
-        story: 'Will Smith’s ESFP energy and natural charisma made him a global superstar across music, TV, and film. His ability to connect with anyone and light up any room is a classic example of the Entertainer personality in action.'
+        story: 'Will Smith\'s ESFP energy and natural charisma made him a global superstar across music, TV, and film. His ability to connect with anyone and light up any room is a classic example of the Entertainer personality in action.'
     }
 };
 
@@ -1073,7 +1079,6 @@ function initCommunityPage() {
         loadInsights(e.target.value);
     });
 
-    // Auto-load user's personality if available
     const result = JSON.parse(localStorage.getItem('mbtiResult'));
     if (result && result.type) {
         explorer.value = result.type;
@@ -1094,17 +1099,14 @@ function loadInsights(type) {
     const data = personalityInsights[type];
     if (!data) return;
 
-    // Show content, hide empty state
     if (content) content.style.display = 'block';
     if (emptyState) emptyState.style.display = 'none';
 
-    // Update UI
     const displayType = document.getElementById('displayType');
     const displayName = document.getElementById('displayName');
     if (displayType) displayType.textContent = type;
     if (displayName) displayName.textContent = data.name;
     
-    // Career Tips
     const tipsContainer = document.getElementById('careerTips');
     if (tipsContainer) {
         tipsContainer.innerHTML = data.tips.map(tip => `
@@ -1112,7 +1114,6 @@ function loadInsights(type) {
         `).join('');
     }
 
-    // Celebrities
     const celebGrid = document.getElementById('celebrityGrid');
     if (celebGrid) {
         celebGrid.innerHTML = data.celebs.map(celeb => `
@@ -1124,11 +1125,9 @@ function loadInsights(type) {
         `).join('');
     }
 
-    // Story
     const storyBox = document.getElementById('inspiringStory');
     if (storyBox) storyBox.textContent = data.story;
 
-    // Scroll to content
     if (content) content.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
